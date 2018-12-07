@@ -1,5 +1,6 @@
 package com.example.valdemar.myassistance;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.inputmethodservice.Keyboard;
 import android.support.v7.app.AppCompatActivity;
@@ -23,15 +24,13 @@ import javax.crypto.AEADBadTagException;
 
 public class Menu extends AppCompatActivity implements ZXingScannerView.ResultHandler{
     private ZXingScannerView escannerView;
-    private String Dato;
+    private String Dato,F;
     private TextView USER;
     private ListView LIST;
-    private ArrayList<String[]> ARRAYLIST;
-    private ArrayList<String[]> rows;
+    private ArrayList<String[]> ARRAYLIST, rows;
     private ArrayAdapter<String[]> ADAPTER;
     private String[]header;
     private TemplatePDF templatePDF;
-    private String shorText = "hola";
     private Button Reg;
     private int i;
     @Override
@@ -41,14 +40,14 @@ public class Menu extends AppCompatActivity implements ZXingScannerView.ResultHa
         Reg = (Button)findViewById(R.id.registros);
         LIST = (ListView)findViewById(R.id.USUARIOS);
         ARRAYLIST = new ArrayList<String[]>();
-        rows = new ArrayList<>();
+        rows = new ArrayList<String[]>();
         ADAPTER = new ArrayAdapter<String[]>(this,R.layout.custom, ARRAYLIST);
         LIST.setAdapter(ADAPTER);
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int mes = c.get(Calendar.MONTH);
         int dia = c.get(Calendar.DAY_OF_MONTH);
-        String F = String.valueOf(dia+"/"+mes+"/"+year);
+        F = String.valueOf(dia+"/"+mes+"/"+year);
         templatePDF = new TemplatePDF(getApplicationContext());
         templatePDF.openDocument();
         templatePDF.addTitles("Registro","Usuarios",F);
@@ -87,14 +86,19 @@ public class Menu extends AppCompatActivity implements ZXingScannerView.ResultHa
             Reg.setEnabled(true);
         }
     }
+    private ArrayList<String[]>getClients(){
+        return rows;
+    }
+    public void verPDF(View view){
+        Intent intent = new Intent(this, Pdf.class);
+        intent.putExtra("Fecha", F);
+        intent.putExtra("Array", rows);
+        startActivity(intent);
+    }
     public void createPDF(View view){
-        templatePDF.viewPdF();
-        //templatePDF.appviewPdF(this);
+        templatePDF.appviewPdF(this);
         header= new String[]{"Nº","Datos Personales","Hr Ingreso"};
         templatePDF.createTable(header,getClients());
         templatePDF.closeDocument();
-    }
-    private ArrayList<String[]>getClients(){
-        return rows;
     }
 }

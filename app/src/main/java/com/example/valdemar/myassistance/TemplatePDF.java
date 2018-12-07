@@ -34,8 +34,8 @@ public class TemplatePDF {
     private Paragraph paragraph;
     private Font ftitle =  new Font(Font.FontFamily.TIMES_ROMAN,20,Font.BOLD);
     private Font fSubTitle =  new Font(Font.FontFamily.TIMES_ROMAN,18,Font.BOLD);
-    private Font fText =  new Font(Font.FontFamily.TIMES_ROMAN,12,Font.BOLD);
-    private Font fHighText =  new Font(Font.FontFamily.TIMES_ROMAN,15,Font.BOLD);
+    private Font fHighText =  new Font(Font.FontFamily.TIMES_ROMAN,12,Font.BOLD);
+    private Font fText =  new Font(Font.FontFamily.TIMES_ROMAN,11);
 
     public TemplatePDF(Context context) {
         this.context = context;
@@ -63,12 +63,6 @@ public class TemplatePDF {
         document.close();
     }
 
-    public void addMetaData(String title, String subject, String author){
-        document.addTitle(title);
-        document.addSubject(subject);
-        document.addAuthor(author);
-    }
-
     private void addChildP(Paragraph childParagraph){
         childParagraph.setAlignment(Element.ALIGN_CENTER);
         paragraph.add(childParagraph);
@@ -84,14 +78,6 @@ public class TemplatePDF {
             document.add(paragraph);
         }catch (Exception e){
             Log.e("addTitles",e.toString());
-        }
-    }
-
-    public void addIMG(Image img){
-        try {
-            document.add(img);
-        }catch (Exception e){
-            Log.e("addIMG",e.toString());
         }
     }
 
@@ -112,12 +98,12 @@ public class TemplatePDF {
             paragraph.setFont(fText);
             PdfPTable pdfPTable =  new PdfPTable(header.length);
             pdfPTable.setWidthPercentage(100);
-            pdfPTable.setWidths(new float[] {5,70,15});
+            pdfPTable.setWidths(new float[] {5,70,20});
             pdfPTable.setSpacingBefore(5);
             PdfPCell pdfPCell;
             int indexC=0;
             while (indexC<header.length){
-                pdfPCell = new PdfPCell(new Phrase(header[indexC++],fSubTitle));
+                pdfPCell = new PdfPCell(new Phrase(header[indexC++],fHighText));
                 pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 pdfPCell.setBackgroundColor(BaseColor.GRAY);
                 pdfPTable.addCell(pdfPCell);
@@ -127,12 +113,12 @@ public class TemplatePDF {
                 String []row = clients.get(indexR);
                 for(indexC=0; indexC<header.length;indexC++){
                     if (indexC == 0 || indexC == 2){
-                        pdfPCell = new PdfPCell(new Phrase(row[indexC]));
+                        pdfPCell = new PdfPCell(new Phrase(row[indexC],fText));
                         pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
                         pdfPCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                         pdfPTable.addCell(pdfPCell);
                     }else{
-                        pdfPCell = new PdfPCell(new Phrase(row[indexC]));
+                        pdfPCell = new PdfPCell(new Phrase(row[indexC],fText));
                         pdfPCell.setFixedHeight(30);
                         pdfPTable.addCell(pdfPCell);
                     }
@@ -150,7 +136,6 @@ public class TemplatePDF {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
-
     public void appviewPdF(Activity activity){
         if(pdfFile.exists()){
             Uri uri = Uri.fromFile(pdfFile);
