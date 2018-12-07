@@ -106,27 +106,36 @@ public class TemplatePDF {
         }
     }
 
-    public void createTable(String[]header, ArrayList<String> clients){
+    public void createTable(String[]header, ArrayList<String[]> clients){
         try{
             paragraph =  new Paragraph();
             paragraph.setFont(fText);
             PdfPTable pdfPTable =  new PdfPTable(header.length);
             pdfPTable.setWidthPercentage(100);
-            pdfPTable.setSpacingBefore(20);
+            pdfPTable.setWidths(new float[] {5,70,15});
+            pdfPTable.setSpacingBefore(5);
             PdfPCell pdfPCell;
             int indexC=0;
             while (indexC<header.length){
                 pdfPCell = new PdfPCell(new Phrase(header[indexC++],fSubTitle));
                 pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                pdfPCell.setBackgroundColor(BaseColor.BLUE);
+                pdfPCell.setBackgroundColor(BaseColor.GRAY);
                 pdfPTable.addCell(pdfPCell);
             }
+            Toast.makeText(context,"size: "+clients.size()+" : "+header.length,Toast.LENGTH_LONG).show();
             for(int indexR=0; indexR<clients.size(); indexR++){
-                String row = clients.get(indexR);
+                String []row = clients.get(indexR);
                 for(indexC=0; indexC<header.length;indexC++){
-                    pdfPCell = new PdfPCell(new Phrase(row));
-                    pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    pdfPTable.addCell(pdfPCell);
+                    if (indexC == 0 || indexC == 2){
+                        pdfPCell = new PdfPCell(new Phrase(row[indexC]));
+                        pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        pdfPCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        pdfPTable.addCell(pdfPCell);
+                    }else{
+                        pdfPCell = new PdfPCell(new Phrase(row[indexC]));
+                        pdfPCell.setFixedHeight(30);
+                        pdfPTable.addCell(pdfPCell);
+                    }
                 }
             }
             paragraph.add(pdfPTable);
