@@ -55,7 +55,7 @@
         android:background="@android:color/darker_gray"
         android:text="Nº"
         android:textAlignment="center"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Fecha" />
@@ -63,12 +63,12 @@
     <TextView
         android:id="@+id/textView6"
         android:layout_width="250dp"
-        android:layout_height="17dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@android:color/darker_gray"
         android:text="Datos Personales"
         android:textAlignment="center"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/Fecha" />
@@ -82,22 +82,40 @@
         android:background="@android:color/darker_gray"
         android:text="Hr. Ingreso"
         android:textAlignment="center"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/Fecha" />
 
-    <ListView
-        android:id="@+id/LIS"
+    <TableLayout
+        android:id="@+id/LISTAS"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
 </android.support.constraint.ConstraintLayout>
