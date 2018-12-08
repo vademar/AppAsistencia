@@ -39,7 +39,7 @@ public class Pdf extends AppCompatActivity {
             for(int indexC=0; indexC<3;indexC++){
                 textView = new TextView(this);
                 if(indexC ==2 ){
-                    textView.setWidth(245);
+                    textView.setWidth(244);
                 }
                 textView.setHeight(78);
                 textView.setGravity(Gravity.CENTER_VERTICAL);
