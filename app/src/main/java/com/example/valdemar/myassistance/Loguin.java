@@ -20,7 +20,7 @@ public class Loguin extends AppCompatActivity {
         //PSS =  (EditText)findViewById(R.id.PSS);
         texto = (TextView)findViewById(R.id.texto);
         reco = (TextView)findViewById(R.id.recom);
-       
+
     }
     public void Sesion(View view){
         Intent adm = new Intent(this,Menu.class);
