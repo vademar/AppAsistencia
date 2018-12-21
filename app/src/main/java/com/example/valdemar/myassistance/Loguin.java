@@ -5,19 +5,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Loguin extends AppCompatActivity {
     private EditText CI, PSS;
     private String user, pss, usuario, contraseña;
+    private TextView texto, reco, texto1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loguin);
-        CI = (EditText)findViewById(R.id.CII);
-        PSS =  (EditText)findViewById(R.id.PSS);
+        //CI = (EditText)findViewById(R.id.CII);
+        //PSS =  (EditText)findViewById(R.id.PSS);
+        texto = (TextView)findViewById(R.id.texto);
+        reco = (TextView)findViewById(R.id.recom);
+        String txt = "ESTA APLICACION ESTA DESARROLLADA PARA EL REGISTRO DE USUARIOS UTILIZANDO CODIGO QR A PARTIR DE ESTOS REGISTROS GENERAR UN ARCHIVO PDF";
+        String rec = "TOME EN CUENTA LAS SIGUIENTES RECOMENDACIONES";
+        String text1 = "TITULO:(Será el nombre de la serie de escaneos realizada y el nombre del archivo PDF), Sin este nombre podra utilizar la aplicacion"+"\n"+
+                        "Boton";
+        texto.setText(txt);
+        reco.setText(rec);
     }
     public void Sesion(View view){
+        Intent adm = new Intent(this,Menu.class);
+        startActivity(adm);
+        finish();
+    }
+    /*public void Sesion(View view){
         user = "admin";
         pss = "admin";
         usuario = CI.getText().toString();
@@ -37,5 +52,5 @@ public class Loguin extends AppCompatActivity {
                 Toast.makeText(this,"Contraseña Incorrecto",Toast.LENGTH_SHORT).show();
         }else
             Toast.makeText(this,"Usuario Incorrecto",Toast.LENGTH_SHORT).show();
-    }
+    }*/
 }

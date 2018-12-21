@@ -18,7 +18,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import java.util.ArrayList;
 
 public class Pdf extends AppCompatActivity {
-    private TextView fecha;
+    private TextView fecha, titulo;
     private TableLayout LIST;
     private ArrayList LISTAS;
     private String[] Rows;
@@ -28,7 +28,9 @@ public class Pdf extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf);
+        titulo = (TextView)findViewById(R.id.tit);
         fecha = (TextView)findViewById(R.id.Fecha);
+        llenar();
         LIST = (TableLayout) findViewById(R.id.LISTAS);
         LISTAS = (ArrayList) getIntent().getSerializableExtra("Array");
         dat = new ArrayList<String>();
@@ -39,26 +41,26 @@ public class Pdf extends AppCompatActivity {
             for(int indexC=0; indexC<3;indexC++){
                 textView = new TextView(this);
                 if(indexC ==2 ){
-                    textView.setWidth(244);
+                    textView.setWidth(245);
                 }
-                textView.setHeight(78);
+                textView.setHeight(73);
                 textView.setGravity(Gravity.CENTER_VERTICAL);
                 textView.setPadding(15,15,15,15);
                 textView.setText(row[indexC]);
-                textView.setTextSize(11);
-                //textView.setTextColor(Color.BLUE);
+                textView.setTextSize(10);
                 Ro.addView(textView);
             }
             LIST.addView(Ro);
         }
         DAT = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, dat);
-        //LIST.setAdapter(DAT);
-        llenar();
+
     }
     public void llenar(){
         Bundle B = getIntent().getExtras();
         if(B != null){
+            String titt = B.getString("titulo");
             String fe=B.getString("Fecha");
+            titulo.setText(titt);
             fecha.setText("Generado: "+fe);
         }
     }

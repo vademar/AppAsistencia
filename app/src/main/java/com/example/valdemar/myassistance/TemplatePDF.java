@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
@@ -32,24 +33,26 @@ public class TemplatePDF {
     private Document document;
     private PdfWriter pdfWriter;
     private Paragraph paragraph;
-    private Font ftitle =  new Font(Font.FontFamily.TIMES_ROMAN,20,Font.BOLD);
-    private Font fSubTitle =  new Font(Font.FontFamily.TIMES_ROMAN,18,Font.BOLD);
+    private Font ftitle =  new Font(Font.FontFamily.TIMES_ROMAN,14,Font.BOLD);
+    private Font fSubTitle =  new Font(Font.FontFamily.TIMES_ROMAN,13,Font.BOLD);
     private Font fHighText =  new Font(Font.FontFamily.TIMES_ROMAN,12,Font.BOLD);
     private Font fText =  new Font(Font.FontFamily.TIMES_ROMAN,11);
-
+    private String Titulo;
     public TemplatePDF(Context context) {
         this.context = context;
     }
 
-    private void createFile(){
+    private void createFile(String nombre){
+        //String Titulo = "pruebas";
+        Titulo = nombre+".pdf";
         File folder = new File(Environment.getExternalStorageDirectory().toString(),"Sedes");
         if(!folder.exists())
             folder.mkdirs();
-        pdfFile = new File(folder,"Registro.pdf");
+        pdfFile = new File(folder,Titulo);
     }
 
-    public void openDocument(){
-        createFile();
+    public void openDocument(String nombre){
+        createFile(nombre);
         try{
             document = new Document(PageSize.A4);
             pdfWriter = PdfWriter.getInstance(document,new FileOutputStream(pdfFile));
@@ -70,6 +73,7 @@ public class TemplatePDF {
 
     public void addTitles(String title, String subTitle, String date){
         try{
+            Titulo =title;
             paragraph = new Paragraph();
             addChildP(new Paragraph(title,ftitle));
             addChildP(new Paragraph(subTitle,fSubTitle));
@@ -108,7 +112,6 @@ public class TemplatePDF {
                 pdfPCell.setBackgroundColor(BaseColor.GRAY);
                 pdfPTable.addCell(pdfPCell);
             }
-            Toast.makeText(context,"size: "+clients.size()+" : "+header.length,Toast.LENGTH_LONG).show();
             for(int indexR=0; indexR<clients.size(); indexR++){
                 String []row = clients.get(indexR);
                 for(indexC=0; indexC<header.length;indexC++){
