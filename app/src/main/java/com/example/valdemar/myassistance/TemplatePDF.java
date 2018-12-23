@@ -43,8 +43,11 @@ public class TemplatePDF {
     }
 
     private void createFile(String nombre){
-        //String Titulo = "pruebas";
-        Titulo = nombre+".pdf";
+        if(nombre.length()>10){
+            Titulo = nombre.substring(0,10)+".pdf";
+        }else{
+            Titulo = nombre+".pdf";
+        }
         File folder = new File(Environment.getExternalStorageDirectory().toString(),"Sedes");
         if(!folder.exists())
             folder.mkdirs();

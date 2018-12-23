@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#938e8e">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetApi="lollipop"
+    android:color="#00ffffff">
     <item android:drawable="@drawable/bg_ripple"/>
 </ripple>
